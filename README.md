@@ -104,7 +104,7 @@ Accede a la documentación interactiva Swagger desde:
    [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 5. **Restaura el collection para Postman**
-   Descarga el archivo que contiene las APIS preconfiguradas para hacer pruebas manuales.
+   Descarga el archivo (**Italika Backend Challenge.postman_collection.json**) que contiene las APIS preconfiguradas para hacer pruebas manuales.
    No olvides realizar el cambio de token cuando inicies sesión en la configuración de la colección.
 
 ---
