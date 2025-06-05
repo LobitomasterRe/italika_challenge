@@ -46,3 +46,19 @@ BEGIN
     END IF;
 END;
 $$;
+
+-- PROCEDIMIENTO PARA ELIMINAR
+CREATE OR REPLACE PROCEDURE sp_delete_producto(
+    p_id integer
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF (SELECT bloqueado FROM productos WHERE id = p_id) THEN
+        RAISE EXCEPTION 'Producto bloqueado';
+    ELSE
+        DELETE FROM productos
+        WHERE id = p_id;
+    END IF;
+END;
+$$;

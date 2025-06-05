@@ -35,9 +35,16 @@ public class ProductoController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse> actualizar(@PathVariable Integer id, @RequestBody Producto producto) {
         producto.setId(id);
-        productoService.actualizar(producto);
-        ApiResponse response = new ApiResponse(200, "Producto actualizado correctamente");
-        return ResponseEntity.ok(response);
+        try {
+        	 productoService.actualizar(producto);
+             ApiResponse response = new ApiResponse(200, "Producto actualizado correctamente");
+             return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			ApiResponse response = new ApiResponse(400, "Producto bloqueado, no se puede actualizar");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+       
     }
 
     @Operation(summary = "Bloquear o desbloquear un producto")
@@ -61,8 +68,16 @@ public class ProductoController {
 
     @Operation(summary = "Eliminar un producto por su ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
-        productoService.eliminar(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ApiResponse> eliminar(@PathVariable Integer id) {
+    	try {
+    		productoService.eliminar(id);
+            ApiResponse response = new ApiResponse(200, "Producto eliminado correctamente");
+            return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			// TODO: handle exception
+	        ApiResponse response = new ApiResponse(400, "Producto bloqueado, no se puede eliminar");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+        
     }
 }
